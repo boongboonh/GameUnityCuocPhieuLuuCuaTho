@@ -1,0 +1,34 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class HealthManager : MonoBehaviour
+{
+    //thong so mau
+    [SerializeField] public static int health = 3;
+
+    public Image[] hearts; //note: import ui
+
+    public Sprite fullHeart;
+
+    public Sprite emptyHeart;
+
+
+    private void Awake()
+    {
+        //khởi tạo lại số máu khi chơi
+        health = 3;
+    }
+    void Update()
+    {
+        foreach(Image img in hearts)
+        {
+            img.sprite = emptyHeart;
+        }
+        for (int i = 0; i < health; i++)
+        {
+            hearts[i].sprite = fullHeart;
+        }
+    }
+}
