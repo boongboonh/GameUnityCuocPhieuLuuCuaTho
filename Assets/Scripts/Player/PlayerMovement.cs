@@ -61,11 +61,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
 
-      
-    }
-
-    private void FixedUpdate()
-    {
         //di chuyển trái phải
         dirX = Input.GetAxisRaw("Horizontal");
 
@@ -83,9 +78,13 @@ public class PlayerMovement : MonoBehaviour
             Destroy(instan_jump_old, 0.5f);
         }
 
+       
+    }
+
+    private void FixedUpdate()
+    {
         //gọi hàm điều khiển animation
         updateAnimation();
-
     }
 
     public void player_jump_acti(float strong)

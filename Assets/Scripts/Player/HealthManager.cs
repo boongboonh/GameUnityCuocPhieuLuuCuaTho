@@ -1,34 +1,58 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class HealthManager : MonoBehaviour
 {
-    //thong so mau
-    [SerializeField] public static int health = 3;
+    public int Maxhealth = 3;
+    public int health = 0;
 
-    public Image[] hearts; //note: import ui
+    public RectTransform pointHealth;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Sprite emptyHeart;
 
-    public Sprite fullHeart;
+    private List<Image> healthImages = new List<Image>();
 
-    public Sprite emptyHeart;
-
+    public static HealthManager Instance { get; private set; }
 
     private void Awake()
     {
-        //khởi tạo lại số máu khi chơi
-        health = 3;
-    }
-    void Update()
-    {
-        foreach(Image img in hearts)
+        if (Instance != null && Instance != this)
         {
-            img.sprite = emptyHeart;
+            Destroy(gameObject);
         }
+        else
+        {
+            Instance = this;
+        }
+
+        health = Maxhealth;
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < Maxhealth; i++)
+        {
+            GameObject newObj = new GameObject();
+            Image newImage = newObj.AddComponent<Image>();
+            newImage.sprite = null;
+            newObj.GetComponent<RectTransform>().SetParent(pointHealth.transform);
+            healthImages.Add(newImage);
+        }
+
+        ResetUIHealth();
+    }
+
+    public void ResetUIHealth()
+    {
+        foreach (Image image in healthImages)
+        {
+            image.sprite = emptyHeart;
+        }
+
         for (int i = 0; i < health; i++)
         {
-            hearts[i].sprite = fullHeart;
+            healthImages[i].sprite = fullHeart;
         }
     }
 }

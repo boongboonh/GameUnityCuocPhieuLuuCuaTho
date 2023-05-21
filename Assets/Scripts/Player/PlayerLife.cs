@@ -52,8 +52,9 @@ public class PlayerLife : MonoBehaviour
         //khi chạm vào quái
         if (collision.gameObject.CompareTag("trap") || collision.gameObject.CompareTag("enemy"))
         {
-            HealthManager.health--;
-            if (HealthManager.health <= 0)
+            HealthManager.Instance.health--;
+            HealthManager.Instance.ResetUIHealth();
+            if (HealthManager.Instance.health <= 0)
             {
                 //âm thanh 
                 death_audio.Play();
